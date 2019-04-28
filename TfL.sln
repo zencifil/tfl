@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tfl.RoadStatus", "Tfl.RoadS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfL.RoadStatus.Service", "TfL.RoadStatus.Service\TfL.RoadStatus.Service.csproj", "{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfL.RoadStatus.Service.Test", "TfL.RoadStatus.Service.Test\TfL.RoadStatus.Service.Test.csproj", "{D7950B66-15B1-446B-A700-070D42D44BFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7950B66-15B1-446B-A700-070D42D44BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7950B66-15B1-446B-A700-070D42D44BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7950B66-15B1-446B-A700-070D42D44BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7950B66-15B1-446B-A700-070D42D44BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
