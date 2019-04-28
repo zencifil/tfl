@@ -12,4 +12,9 @@
   <ItemGroup>
     <ProjectReference Include="..\TfL.RoadStatus.Service\TfL.RoadStatus.Service.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

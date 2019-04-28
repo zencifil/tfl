@@ -18,7 +18,7 @@ namespace TfL.RoadStatus.Service.Contract
         public string HttpStatus { get; set; }
 
         [DataMember]
-        public string RelativeUrl { get; set; }
+        public string RelativeUri { get; set; }
 
         [DataMember]
         public string Message { get; set; }

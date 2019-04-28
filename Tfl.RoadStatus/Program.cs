@@ -21,6 +21,7 @@ namespace Tfl.RoadStatus
                 roadName = args[0];
 
             var serviceProvider = new ServiceCollection()
+                .AddSingleton<IHttpClient, HttpClient>()
                 .AddSingleton<IRoadStatusPolicy, RoadStatusPolicy>()
                 .BuildServiceProvider();
 
