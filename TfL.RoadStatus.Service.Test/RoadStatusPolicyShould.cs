@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using NUnit.Framework;
-using TfL.RoadStatus.Service.Contract;
 using FluentAssertions;
 using Moq;
-using System.Net.Http;
+using NUnit.Framework;
+using TfL.RoadStatus.Service.Contract;
 
 namespace TfL.RoadStatus.Service.Test
 {

@@ -19,12 +19,13 @@ namespace TfL.RoadStatus.Service
 
         public async Task<RoadStatusResponse> GetRoadStatus(GetRoadStatusRequest request)
         {
+            // this can be moved to validator
             if (request is null || string.IsNullOrEmpty(request.RoadName))
                 return null;
 
             var proxyResponse = await _httpClient.GetAsync($"{BaseUrl}/{request.RoadName}?app_id={request.AppId}&app_key={request.AppKey}");
 
-            if (!proxyResponse.IsSuccessStatusCode)
+            if (proxyResponse is null || !proxyResponse.IsSuccessStatusCode)
                 return null;
 
             var roadStatus = new List<RoadStatusDto>();
