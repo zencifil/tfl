@@ -3,7 +3,7 @@
 namespace TfL.RoadStatus.Service.Contract
 {
     [DataContract]
-    public class RoadStatusDto : BaseDto
+    public class RoadStatusDto
     {
         [DataMember]
         public string Id { get; set; }

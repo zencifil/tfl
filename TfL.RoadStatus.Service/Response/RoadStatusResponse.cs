@@ -3,9 +3,9 @@
 namespace TfL.RoadStatus.Service.Contract
 {
     [DataContract]
-    public class RoadStatusResponse : IResponse
+    public class RoadStatusResponse
     {
         [DataMember]
-        public BaseDto Result { get; set; }
+        public RoadStatusDto RoadStatus { get; set; }
     }
 }

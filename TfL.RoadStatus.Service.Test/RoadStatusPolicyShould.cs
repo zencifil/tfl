@@ -22,63 +22,34 @@ namespace TfL.RoadStatus.Service.Test
         }
 
         [Test]
-        public void ReturnExceptionResponse_WhenRequestIsNullAsync()
+        public async Task ReturnNull_WhenRequestIsNullAsync()
         {
-            _policy.GetRoadStatus(default(GetRoadStatusRequest)).Should().BeEquivalentTo(new ExceptionResponse
-            {
-                Result = new ExceptionDto
-                {
-                    ExceptionType = "ArgumentNullException",
-                    HttpStatus = "BadRequest",
-                    HttpStatusCode = 400,
-                    Message = "Request cannot be null.",
-                    RelativeUri = "/Road/",
-                    TimeStampUtc = DateTime.UtcNow.ToLongDateString()
-                }
-            });
+            var response = await _policy.GetRoadStatus(default(GetRoadStatusRequest));
+
+            Assert.IsNull(response);
         }
 
         [Test]
-        public void ReturnExceptionResponse_WhenRoadNameIsEmpty()
+        public async Task ReturnNull_WhenRoadNameIsEmpty()
         {
-            _policy.GetRoadStatus(new GetRoadStatusRequest { RoadName = string.Empty }).Should().BeEquivalentTo(new ExceptionResponse
-            {
-                Result = new ExceptionDto
-                {
-                    ExceptionType = "ArgumentNullException",
-                    HttpStatus = "BadRequest",
-                    HttpStatusCode = 400,
-                    Message = "Request cannot be null.",
-                    RelativeUri = "/Road/",
-                    TimeStampUtc = DateTime.UtcNow.ToLongDateString()
-                }
-            });
+            var response = await _policy.GetRoadStatus(new GetRoadStatusRequest { RoadName = string.Empty });
+
+            Assert.IsNull(response);
         }
 
         [Test]
-        public async Task ReturnExceptionResponse_WhenRoadIsNotFound()
+        public async Task ReturnNull_WhenRoadIsNotFound()
         {
             _mockHttpClient.Setup(hc => hc.GetAsync(It.IsAny<string>())).ReturnsAsync(
                 new HttpResponseMessage
                 {
                     StatusCode = System.Net.HttpStatusCode.NotFound,
-                    Content = new StringContent("{\n  \"$type\": \"Tfl.Api.Presentation.Entities.ApiError, Tfl.Api.Presentation.Entities\",\n  \"timestampUtc\": \"2017-11-21T14:37:39.7206118Z\",\n  \"exceptionType\": \"EntityNotFoundException\",\n  \"httpStatusCode\": 404,\n  \"httpStatus\": \"NotFound\",\n  \"relativeUri\": \"/Road/A233\",\n  \"message\": \"The following road id is not recognised: A233\"\n}\n")
+                    Content = new StringContent("not found")
                 });
-
-            var expectedResult = new ExceptionDto
-            {
-                ExceptionType = "EntityNotFoundException",
-                HttpStatus = "NotFound",
-                HttpStatusCode = 404,
-                Message = "The following road id is not recognised: A233",
-                RelativeUri = "/Road/A233",
-                TimeStampUtc = "2017-11-21T14:37:39.7206118Z"
-            };
 
             var response = await _policy.GetRoadStatus(new GetRoadStatusRequest { RoadName = "Test", AppId = "Test", AppKey = "Test" });
 
-            Assert.That(response is ExceptionResponse);
-            response.Result.Should().BeEquivalentTo(expectedResult);
+            Assert.IsNull(response);
         }
 
         [Test]
@@ -105,7 +76,7 @@ namespace TfL.RoadStatus.Service.Test
             var response = await _policy.GetRoadStatus(new GetRoadStatusRequest { RoadName = "Test", AppId = "Test", AppKey = "Test" });
 
             Assert.That(response is RoadStatusResponse);
-            response.Result.Should().BeEquivalentTo(expectedResult);
+            response.RoadStatus.Should().BeEquivalentTo(expectedResult);
         }
     }
 }

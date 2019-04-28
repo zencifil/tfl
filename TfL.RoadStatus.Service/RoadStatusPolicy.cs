@@ -17,54 +17,20 @@ namespace TfL.RoadStatus.Service
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task<IResponse> GetRoadStatus(GetRoadStatusRequest request)
+        public async Task<RoadStatusResponse> GetRoadStatus(GetRoadStatusRequest request)
         {
-            if (request is null)
-                return new ExceptionResponse
-                {
-                    Result = new ExceptionDto
-                    {
-                        // can be enum
-                        ExceptionType = "ArgumentNullException",
-                        HttpStatus = "BadRequest",
-                        HttpStatusCode = 400,
-                        Message = "Request cannot be null.",
-                        RelativeUri = "/Road/",
-                        TimeStampUtc = DateTime.UtcNow.ToLongDateString()
-                    }
-                };
-
-            if (string.IsNullOrEmpty(request.RoadName))
-                return new ExceptionResponse
-                {
-                    Result = new ExceptionDto
-                    {
-                        // can be enum
-                        ExceptionType = "ArgumentNullException",
-                        HttpStatus = "BadRequest",
-                        HttpStatusCode = 400,
-                        Message = "Road name cannot be null.",
-                        RelativeUri = "/Road/",
-                        TimeStampUtc = DateTime.UtcNow.ToLongDateString()
-                    }
-                };
+            if (request is null || string.IsNullOrEmpty(request.RoadName))
+                return null;
 
             var proxyResponse = await _httpClient.GetAsync($"{BaseUrl}/{request.RoadName}?app_id={request.AppId}&app_key={request.AppKey}");
 
-            if (proxyResponse.IsSuccessStatusCode)
-            {
-                var roadStatus = new List<RoadStatusDto>();
-                JsonConvert.PopulateObject(await proxyResponse.Content.ReadAsStringAsync(), roadStatus);
+            if (!proxyResponse.IsSuccessStatusCode)
+                return null;
 
-                return new RoadStatusResponse { Result = roadStatus[0] };
-            }
-            else
-            {
-                var exception = new ExceptionDto();
-                JsonConvert.PopulateObject(await proxyResponse.Content.ReadAsStringAsync(), exception);
+            var roadStatus = new List<RoadStatusDto>();
+            JsonConvert.PopulateObject(await proxyResponse.Content.ReadAsStringAsync(), roadStatus);
 
-                return new ExceptionResponse { Result = exception };
-            }
+            return new RoadStatusResponse { RoadStatus = roadStatus[0] };
         }
     }
 }

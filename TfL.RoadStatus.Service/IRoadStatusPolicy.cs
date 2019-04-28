@@ -5,6 +5,6 @@ namespace TfL.RoadStatus.Service
 {
     public interface IRoadStatusPolicy
     {
-        Task<IResponse> GetRoadStatus(GetRoadStatusRequest request);
+        Task<RoadStatusResponse> GetRoadStatus(GetRoadStatusRequest request);
     }
 }
