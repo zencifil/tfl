@@ -12,6 +12,23 @@ This project is created with Visual Studio 2019 for Mac using .NET Core 2.1.
 
 If you do not provide [ROAD_NAME] when running the application, it will ask for it.
 
+If the road name is valid you'll see this result:
+
+```
+$ dotnet run --project TfL.RoadStatus A10
+The status of the A10 is as follows
+    Road Status is Good
+    Road Status Description is No Exceptional Delays
+```
+
+If the road name is invalid you'll see this result:
+
+```
+$ dotnet run --project TfL.RoadStatus A10f
+A10f is not a valid road.
+```
+
+
 ## Tests
 Tests were written using NUnit. They should simply run when `Run All Tests` hit. It might need NUnit3TestAdapter to be installed from NuGet.
 
