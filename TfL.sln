@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tfl.RoadStatus", "Tfl.RoadStatus\Tfl.RoadStatus.csproj", "{F3428845-0B39-470B-860E-2847583B7B28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfL.RoadStatus.Service", "TfL.RoadStatus.Service\TfL.RoadStatus.Service.csproj", "{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{F3428845-0B39-470B-860E-2847583B7B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3428845-0B39-470B-860E-2847583B7B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3428845-0B39-470B-860E-2847583B7B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9DFDAB-D601-48AA-A620-7D63D675ED8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
