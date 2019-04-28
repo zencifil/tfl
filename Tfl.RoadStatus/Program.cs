@@ -20,15 +20,8 @@ namespace Tfl.RoadStatus
             else
                 roadName = args[0];
 
-            var serviceProvider = new ServiceCollection()
-                .AddSingleton<IHttpClient, HttpClient>()
-                .AddSingleton<IRoadStatusPolicy, RoadStatusPolicy>()
-                .BuildServiceProvider();
-
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .Build();
+            var serviceProvider = RegisterDependencies();
+            IConfigurationRoot configuration = GetConfiguration();
 
             var appId = configuration.GetSection("ApiSettings:AppId").Value;
             var appKey = configuration.GetSection("ApiSettings:AppKey").Value;
@@ -36,12 +29,14 @@ namespace Tfl.RoadStatus
             var roadStatusPolicy = serviceProvider.GetService<IRoadStatusPolicy>();
             var response = roadStatusPolicy.GetRoadStatus(new GetRoadStatusRequest { RoadName = roadName, AppId = appId, AppKey = appKey }).Result;
 
-            if (response.Result is ExceptionDto)
-            {
-                Console.WriteLine($"{roadName} is not a valid road.");
-                return -1;
-            }
+            if (response is ExceptionResponse)
+                return WriteExceptionResult(roadName);
 
+            return WriteRoadStatusResult(roadName, response);
+        }
+
+        private static int WriteRoadStatusResult(string roadName, IResponse response)
+        {
             var roadStatus = (RoadStatusDto)response.Result;
 
             Console.WriteLine($"The status of the {roadName} is as follows");
@@ -49,6 +44,28 @@ namespace Tfl.RoadStatus
             Console.WriteLine($"\tRoad Status Description is {roadStatus.StatusSeverityDescription}");
 
             return 0;
+        }
+
+        private static int WriteExceptionResult(string roadName)
+        {
+            Console.WriteLine($"{roadName} is not a valid road.");
+            return -1;
+        }
+
+        private static IConfigurationRoot GetConfiguration()
+        {
+            return new ConfigurationBuilder()
+                            .SetBasePath(Directory.GetCurrentDirectory())
+                            .AddJsonFile("appsettings.json", true, true)
+                            .Build();
+        }
+
+        private static ServiceProvider RegisterDependencies()
+        {
+            return new ServiceCollection()
+                            .AddSingleton<IHttpClient, HttpClient>()
+                            .AddSingleton<IRoadStatusPolicy, RoadStatusPolicy>()
+                            .BuildServiceProvider();
         }
     }
 }
